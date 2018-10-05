@@ -80,17 +80,16 @@ int insert()
 		//If statement prevents the name and department insertion if name matches a name in data
 		if(check_duplicate(temp) == 0)
 		{ 
-			strcpy(INFO[count].name,temp);
 			printf("\nInsert Department (1-4): ");
 			scanf("%d", &temp2);
 		if(temp2 == 1 || temp2 == 2 || temp2 == 3 || temp2 == 4)
         	{	
+			strcpy(INFO[count].name,temp);
         		INFO[count].dept = temp2;
         		count++;
         	}
         	else 
         	{
-			INFO[count].name = NULL;
         		printf("This is not a valid department.");
         	}
        
