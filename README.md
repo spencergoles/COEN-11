@@ -1,5 +1,5 @@
 # COEN 11
-First COEN class lab code
+#First COEN class lab code
 Lab
 ---------------------------
 Lab 1: Create a division game to run in terminal
