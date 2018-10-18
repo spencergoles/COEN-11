@@ -34,7 +34,6 @@ void discard(void);
 void show_dept(void);
 int check_duplicate();
 void show_name(void);
-
 //Main Control Function
 int main() 
 {
@@ -77,141 +76,139 @@ int main()
 //Create Insert Function 
 void insert(void)
 {
-  char temp[20];
+	char temp[20];
  	int temp2;
 	int dayTemp;
 	float feverTemporary;
-  NODE *p;
-  p = (NODE*)malloc(sizeof(NODE));
-
-  printf("Insert Name: ");
+  	NODE *p;
+  	p = (NODE*)malloc(sizeof(NODE));
+  	printf("Insert Name: ");
 	scanf("%s",temp);
 	if(check_duplicate(temp) != 0)
 	{
-			printf("\nThis name has already been used. Please select another.\n");
+		printf("\nThis name has already been used. Please select another.\n");
 	}
- if(check_duplicate(temp) == 0)
- { 
-			printf("\nInsert Department (1-4): ");
-			scanf("%d", &temp2);
-			if(temp2 == 1 || temp2 == 2 || temp2 == 3 || temp2 == 4) 
-    			{	
-            p->dept = temp2;
-				    strcpy(p->name,temp);
-      		  switch (temp2)
-      		  {
-					  case 1:
-						  p->flag = 1;
-						  printf("\nInsert Fever Temperature in Farenheight: ");
-						  scanf("%f", &feverTemporary);
-						  p->extra.feverTemp = feverTemporary; 
-						  break;
-					  case 2: 
-					  	p->flag = 2;
-					  	printf("\nInsert Information: ");
-						  scanf("%s", p->extra.painKind);
-					  	break;
-					  case 3: 
-					  	p->flag = 3;
-					  	printf("\nInsert Sick Day Count: ");
-						  scanf("%d",&dayTemp);
-              p->extra.sickDays = dayTemp;
-              break;
-				  	case 4:
-					    p->flag = 3;
-					  	printf("\nInsert Sick Day Count: ");
-						  scanf("%d",&dayTemp);
-              p->extra.sickDays = dayTemp;
-              break;
+	if(check_duplicate(temp) == 0)
+ 	{ 
+		printf("\nInsert Department (1-4): ");
+		scanf("%d", &temp2);
+		if(temp2 == 1 || temp2 == 2 || temp2 == 3 || temp2 == 4) 
+    		{	
+            		p->dept = temp2;
+			strcpy(p->name,temp);
+      		  	switch (temp2)
+      		  	{
+				case 1:
+					p->flag = 1;
+					printf("\nInsert Fever Temperature in Farenheight: ");
+					scanf("%f", &feverTemporary);
+				     	p->extra.feverTemp = feverTemporary; 
+					break;
+				case 2: 
+					p->flag = 2;
+					printf("\nInsert Information: ");
+					scanf("%s", p->extra.painKind);
+					break;
+				case 3: 
+					p->flag = 3;
+					printf("\nInsert Sick Day Count: ");
+					scanf("%d",&dayTemp);
+              				p->extra.sickDays = dayTemp;
+             				break;
+				case 4:
+					p->flag = 3;
+					printf("\nInsert Sick Day Count: ");
+					scanf("%d",&dayTemp);
+              				p->extra.sickDays = dayTemp;
+              				break;
       			}
-            if (head == NULL)
-            {
-              p->next = NULL;
-              tail = head = p;
-              return;
-            }
-            else
-            {
-              p->next = NULL;
-              tail->next = p;
-              tail = p;
-              return;
-            }
-    			}
-    			else
-          {
-            printf("Not a Valid Department");
-            free(p);
-          }
-      return;
-  }
+           		if (head == NULL)
+            		{
+              			p->next = NULL;
+             			tail = head = p;
+              			return;
+            		}
+            		else
+            		{
+              			p->next = NULL;
+              			tail->next = p;
+              			tail = p;
+              			return;
+            		}
+    		}
+    		else
+          	{
+            		printf("Not a Valid Department");
+            		free(p);
+          	}
+      		return;
+  	}
 }
 //Create discard Function
 void discard(void)
 {
-  int del;
-  NODE *p,*q;
-  p = q = head;
-  printf("\nDelete Department: ");
+	int del;
+  	NODE *p,*q;
+  	p = q = head;
+  	printf("\nDelete Department: ");
 	scanf("%d",&del);
-  if(del == 1 || del == 2 || del == 3 || del == 4)
-  {
-  while(p != NULL)
-  {
-    if(p->dept == del)
-    {
-      break;
-    }
-    q = p;
-    p = p->next;
-  }
-  //If search not found
-  if(p == NULL)
-  {
-    printf("Not Found");
-    return;
-  }
-  //First node
-  if(p == head)
-  {
-    head = p->next;
-    free(p);
-    return;
-  }
-  //Last node
-  else if(p == tail)
-  {
-    tail = q;
-    q->next = NULL;
-    free(p);
-    return;
-  }
-  //Middle node
-  else
-  {
-    q->next = p->next;
-    free(p);
-    return;
-  }
-  }
-  else
+  	if(del == 1 || del == 2 || del == 3 || del == 4)
+  	{
+ 		while(p != NULL)
+  		{
+    			if(p->dept == del)
+    			{
+      				break;
+    			}
+    			q = p;
+    			p = p->next;
+  		}
+  		//If search not found
+  		if(p == NULL)
+  		{
+    			printf("Not Found");
+    			return;
+  		}
+  		//First node
+  		if(p == head)
+  		{
+    			head = p->next;
+    			free(p);
+    			return;
+  		}
+  		//Last node
+  		else if(p == tail)
+  		{
+    			tail = q;
+    			q->next = NULL;
+    			free(p);
+    			return;
+  		}
+  		//Middle node
+  		else
+  		{
+    			q->next = p->next;
+    			free(p);
+    			return;
+  		}
+  	}
+  	else
 	{
      		printf("\nThis is not a valid department.\n");
 	}
-  return;
+  	return;
 }
 //Create function to print the linked list
 void list(void)
 {
-  NODE *p;
-  p = head;
-
-  printf("\nUrgent Care Waiting List\n");
+	NODE *p;
+  	p = head;
+  	printf("\nUrgent Care Waiting List\n");
 	printf("Patient Name\t\tDepartment\t\tInformation\n");
 	printf("--------------------------------------------------------------\n");
-  while(p != NULL)
-  {
-    switch(p->flag)
+  	while(p != NULL)
+  	{
+    		switch(p->flag)
 		{
 			case 1:
 				printf("%s\t\t\t%d\t\t\t%0.1f Degrees F\n",p->name,p->dept,p->extra.feverTemp);
@@ -225,56 +222,55 @@ void list(void)
 			default:
 				printf("");
 				break;
-    }
-    p = p->next;
-  }
-  return;
+    		}
+    		p = p->next;
+  	}
+  	return;
 }
 //Create function to print nodes of a certain department 
 void show_dept(void)
 {
-  int temp;
-  NODE *p;
-  p = head;
-
-  printf("\nInsert Department: ");
-  scanf("%d",&temp);
-  if(temp == 1 || temp == 2 || temp == 3 || temp == 4)
-  {
-    printf("\nUrgent Care Waiting List\n");
-	  printf("Patient Name\t\tDepartment\t\tInformation\n");
-	  printf("--------------------------------------------------------------\n");
-    while(p != NULL)
-    {
-      if(p->dept == temp)
-      {
-        switch(p->dept)
-		    {
-			    case 1:
-			    	printf("%s\t\t\t%d\t\t\t%0.1f Degrees F\n",p->name,p->dept,p->extra.feverTemp);
-				    break;
-			    case 2:
-			    	printf("%s\t\t\t%d\t\t\t%s\n",p->name,p->dept,p->extra.painKind);
-				    break; 
-			    case 3:
-			    	printf("%s\t\t\t%d\t\t\t%d Days Sick\n",p->name,p->dept,p->extra.sickDays);
-			    	break;
-          case 4:
-			    	printf("%s\t\t\t%d\t\t\t%d Days Sick\n",p->name,p->dept,p->extra.sickDays);
-			    	break;
-		    	default:
-		    		printf("");
-			    	break;
-        }
-      }
-     p = p->next;
-    }
-  }
-  else
-  {
-    printf("\nThis is not a valid department.\n");
-  }
-  return;
+	int temp;
+  	NODE *p;
+  	p = head;
+  	printf("\nInsert Department: ");
+  	scanf("%d",&temp);
+  	if(temp == 1 || temp == 2 || temp == 3 || temp == 4)
+  	{
+    		printf("\nUrgent Care Waiting List\n");
+	  	printf("Patient Name\t\tDepartment\t\tInformation\n");
+	  	printf("--------------------------------------------------------------\n");
+    	while(p != NULL)
+    	{
+      		if(p->dept == temp)
+      		{
+        		switch(p->dept)
+		    	{
+				case 1:
+			    		printf("%s\t\t\t%d\t\t\t%0.1f Degrees F\n",p->name,p->dept,p->extra.feverTemp);
+				    	break;
+			        case 2:
+			    		printf("%s\t\t\t%d\t\t\t%s\n",p->name,p->dept,p->extra.painKind);
+				    	break; 
+			    	case 3:
+			    		printf("%s\t\t\t%d\t\t\t%d Days Sick\n",p->name,p->dept,p->extra.sickDays);
+			    		break;
+          			case 4:
+			    		printf("%s\t\t\t%d\t\t\t%d Days Sick\n",p->name,p->dept,p->extra.sickDays);
+			    		break;
+		    		default:
+		    			printf("");
+			    		break;
+        
+      		}
+     		p = p->next;
+    		}
+  	}
+  	else
+  	{
+    		printf("\nThis is not a valid department.\n");
+  	}
+  	return;
 }
 //Create function to print information with a given name
 void show_name(void)
