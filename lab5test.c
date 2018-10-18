@@ -146,6 +146,59 @@ void insert(void)
     return;
   }
 }
+//Create discard Function
+void discard(void)
+{
+  int del;
+  NODE *p,*q;
+  p = q = head;
+  printf("\nDelete Department: ");
+	scanf("%d",&del);
+  if(del == 1 || del == 2 || del == 3 || del == 4)
+  {
+  while(p != NULL)
+  {
+    if(p->dept == del)
+    {
+      break;
+    }
+    q = p;
+    p = p->next;
+  }
+  //If search not found
+  if(p == NULL)
+  {
+    printf("Not Found");
+    return;
+  }
+  //First node
+  if(p == head)
+  {
+    head = p->next;
+    free(p);
+    return;
+  }
+  //Last node
+  else if(p == tail)
+  {
+    q->next = tail;
+    free(p);
+    return;
+  }
+  //Middle node
+  else
+  {
+    q->next = p->next;
+    free(p);
+    return;
+  }
+  }
+  else
+	{
+     		printf("\nThis is not a valid department.\n");
+	}
+  return;
+}
 //Create function to print the linked list
 void list(void)
 {
