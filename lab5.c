@@ -1,5 +1,5 @@
 /**********************************************************************/
-/*  Spencer Goles	 COEN 11	18 October 2018  Version 4.0              */ 
+/*  Spencer Goles	 COEN 11	18 October 2018  Version 4.0  */ 
 /*  This program will administer a Urgent Care waiting list.          */
 /*  It will be able to add, modify, view, and exit the linked list.   */
 /**********************************************************************/
