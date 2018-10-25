@@ -1,5 +1,5 @@
 /**********************************************************************/
-/*  Spencer Goles	 COEN 11	25 October 2018  Version 5.0              */ 
+/*  Spencer Goles	 COEN 11	25 October 2018  Version 5.0  */ 
 /*  This program will administer a Urgent Care waiting list.          */
 /*  It will be able to add, modify, view, and exit the linked list.   */
 /*  Array of linked lists for each dept with text file I/O            */
@@ -34,7 +34,7 @@ struct head_tail
 struct head_tail lists[4];
 //Declaring modules
 void read_insert(char patient[20],int deptNum, union u info);
-void insert(void);
+void collectInfo(void);
 void list(void);
 void discard(void);
 void show_dept(void);
@@ -65,7 +65,7 @@ int main()
 				show_dept();
 				break;
 			case 3:
-				insert();
+				collectInfo();
 				break;
 			case 4:
 				discard();
@@ -81,6 +81,57 @@ int main()
 		} 
 	}
 	return 0;
+}
+//Create Insert for individual node
+void collectInfo(void)
+{
+	char nameTemp[20];
+ 	int deptTemp;
+	union u info;
+  float feverTemporary;
+  int dayTemp;
+  printf("Insert Name: ");
+	scanf("%s",nameTemp);
+	if(check_duplicate(nameTemp) != 0)
+	{
+		printf("\nThis name has already been used. Please select another.\n");
+	}
+ 	if(check_duplicate(nameTemp) == 0)
+ 	{ 
+		printf("\nInsert Department (1-4): ");
+		scanf("%d", &deptTemp);
+		if(deptTemp == 1 || deptTemp == 2 || deptTemp == 3 || deptTemp == 4) 
+    {
+      switch (deptTemp)
+      {
+				case 1:
+					printf("\nInsert Fever Temperature in Farenheight: ");
+					scanf("%f", &feverTemporary);
+					info.feverTemp = feverTemporary; 
+					break;
+				case 2: 
+					printf("\nInsert Information: ");
+					scanf("%s", info.painKind);
+					break;
+				case 3: 
+					printf("\nInsert Sick Day Count: ");
+					scanf("%d",&dayTemp);
+          info.sickDays = dayTemp;
+          break;
+				case 4:
+					printf("\nInsert Sick Day Count: ");
+					scanf("%d",&dayTemp);
+          info.sickDays = dayTemp;
+          break;
+      }
+      read_insert(nameTemp, deptTemp, info);
+    }
+    else
+    {
+      printf("Not a Valid Department");
+    }
+    return;
+  }
 }
 //Create Insert Function to re-create list from text file
 void read_insert(char patient[20],int deptNum, union u info)
@@ -182,19 +233,95 @@ void list(void)
   }
   return;
 } 
-//Create function to show individual departmant
-void show_dept()
-{
-  return;
-}
 //Discard is used to delete an individual node from a list
 void discard(void)
 {
+  int del;
+  NODE *p,*q;
+  printf("Insert Department: ");
+  scanf("%d", &del);
+  if(del == 1 || del == 2 || del == 3 || del == 4)
+  {
+    p = lists[del-1].head;
+    q = p;
+    lists[del-1].head = p->next;
+    free(q);
+  }
+  return;
+}
+//Create function to show individual departmant
+void show_dept()
+{
+  NODE *p;
+  int num;
+  printf("Show Department: ");
+  scanf("%d",&num);
+  printf("\nUrgent Care Waiting List\n");
+	printf("Patient Name\t\tDepartment\t\tInformation\n");
+	printf("--------------------------------------------------------------\n");
+  p = lists[num-1].head;
+    while(p != NULL)
+    {
+      switch(p->flag)
+		  {
+			  case 1:
+			  	printf("%s\t\t\t%d\t\t\t%0.1f Degrees F\n",p->name,p->dept,p->extra.feverTemp);
+			  	break;
+			  case 2:
+			  	printf("%s\t\t\t%d\t\t\t%s\n",p->name,p->dept,p->extra.painKind);
+			  	break; 
+		  	case 3:
+			  	printf("%s\t\t\t%d\t\t\t%d Days Sick\n",p->name,p->dept,p->extra.sickDays);
+			  	break;
+		   default:
+			  	printf("");
+			  	break;
+       }
+       p = p->next;
+    }
   return;
 }
 //Shows information for a searched name 
 void show_name()
 {
+  int i;
+  char temp[20];
+	NODE *p;
+  printf("Insert Name: ");
+  scanf("%s",temp);
+  printf("\nUrgent Care Waiting List\n");
+	printf("Patient Name\t\tDepartment\t\tInformation\n");
+	printf("--------------------------------------------------------------\n");
+  for(i = 0; i < 4; i++)
+  {
+    p = lists[i].head;
+    while(p != NULL)
+    {
+    if(strcmp(p->name,temp) == 0)
+    {
+    switch(p->dept)
+  	{
+			case 1:
+    		printf("%s\t\t\t%d\t\t\t%0.1f Degrees F\n",p->name,p->dept,p->extra.feverTemp);
+       	break;
+		 	case 2:
+	   		printf("%s\t\t\t%d\t\t\t%s\n",p->name,p->dept,p->extra.painKind);
+	    	break; 
+	   	case 3:
+	  		printf("%s\t\t\t%d\t\t\t%d Days Sick\n",p->name,p->dept,p->extra.sickDays);
+	  		break;
+ 			case 4:
+			  printf("%s\t\t\t%d\t\t\t%d Days Sick\n",p->name,p->dept,p->extra.sickDays);
+			  break;
+			default:
+  			printf("");
+	   		break;
+      }
+    }
+    p = p->next;
+  }
+  }
+  
   return;
 }
 
@@ -291,5 +418,6 @@ void delete_all(void)
       free(q);
     }
   }
+  printf("List Deleted");
   return;
 }
