@@ -1,5 +1,5 @@
 /**********************************************************************/
-/*  Spencer Goles	 COEN 11	25 October 2018  Version 5.0  */ 
+/*  Spencer Goles	 COEN 11	25 October 2018  Version 5.0              */ 
 /*  This program will administer a Urgent Care waiting list.          */
 /*  It will be able to add, modify, view, and exit the linked list.   */
 /*  Array of linked lists for each dept with text file I/O            */
@@ -40,12 +40,18 @@ void discard(void);
 void show_dept(void);
 int check_duplicate(char *str);
 void show_name(void);
-void save_file(void);
-void write_all(void);
+void read_file(char *fileName);
+void write_all(char *fileName);
 void delete_all(void);
 //Main Control Function
-int main() 
+int main(int argc, char *argv[ ]) 
 {
+  if (argc == 1)
+  {
+    printf("The name of the file is missing!\n");
+    return 1;
+  }
+  read_file(argv[1]);
 	int cmd;
 	printf("\n\nWelcome to the Urgent Care Waiting List\n\n");
 	while(1)
@@ -325,54 +331,54 @@ void show_name()
   return;
 }
 
-/*
-//Save file into .txt file
-void save_file(void)
+//Read file from data.txt file
+void read_file(char *fileName)
 {
   FILE *fp;
   int departmant;
   char name[20];
-  union u det;
-  fp = fopen("data.txt","r");
+  union u info;
+  fp = fopen(fileName,"r");
   if(fp == NULL)
   {
     return;
   }
-  //fseek(fp, 25, SEEK_SET);
+  fseek(fp, 61, SEEK_SET);
   while(scanf("%s %d ",name, &departmant) == 2)
   {
     switch(departmant)
     {
       case 1: 
-        fscanf(fp, "%f\n", &det.feverTemp);
-        read_insert(name, departmant, det.feverTemp);
+        fscanf(fp, "%f\n", &info.feverTemp);
+        read_insert(name, departmant, info);
         break;
       case 2:
-        fscanf(fp, "%s\n", det.painKind);
-        read_insert(name, departmant, det.painKind);
+        fscanf(fp, "%s\n", info.painKind);
+        read_insert(name, departmant, info);
         break;
       case 3: 
-        fscanf(fp, "%d\n", &det.sickDays);
-        read_insert(name, departmant, det.sickDays);
+        fscanf(fp, "%d\n", &info.sickDays);
+        read_insert(name, departmant, info);
         break;
       case 4:
-        fscanf(fp, "%d\n", &det.sickDays);
-        read_insert(name, departmant, det.sickDays);
+        fscanf(fp, "%d\n", &info.sickDays);
+        read_insert(name, departmant, info);
         break;
     }
   }
+  fclose(fp);
   return;
 }
 //Writes data into a file
-void write_all(void)
+void write_all(char *fileName)
 {
   FILE *fp;
   NODE *p;
   int i;
-  fp = fopen("data.txt", "w");
+  fp = fopen(fileName, "w");
   fprintf(fp, "\nUrgent Care Waiting List\n");
 	fprintf(fp, "Patient Name\t\tDepartment\t\tInformation\n");
-	fprintf(fp, "--------------------------------------------------------------\n");
+	//fprintf(fp, "--------------------------------------------------------------\n");
   for(i = 0; i < 0; i++)
   {
     p = lists[i].head;
@@ -397,11 +403,9 @@ void write_all(void)
       p = p->next;
     }
   }
+  fclose(fp);
   return;
 }
-
-
-*/
 
 //Delete all nodes from memory; function called after file is saved
 void delete_all(void)
