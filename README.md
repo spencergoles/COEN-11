@@ -5,5 +5,6 @@
 * Lab 3: Improve hospital list to use array of structs
 * Lab 4: Improve hospital list to nest unions in structs
 * Lab 5: Improve hospital list to use a linked list with a head and tail
-* Lab 6: Improve hospital list to read/write files with the list and have data in an array of linked lists
-* Lab 7: Improve hospital list to
+* Lab 6: Improve hospital list to read/write text files and have data in an array of linked lists
+* Lab 7: Improve hospital list to read/write binary files and have recursive delete of array of linked lists
+* Lab 8: 
