@@ -7,4 +7,6 @@
 * Lab 5: Improve hospital list to use a linked list with a head and tail
 * Lab 6: Improve hospital list to read/write text files and have data in an array of linked lists
 * Lab 7: Improve hospital list to read/write binary files and have recursive delete of array of linked lists
-* Lab 8: 
+* Lab 8: Improve hospital list to autsave every 15 seconds with multithreading solution
+* Lab 9:
+* Lab 10:
