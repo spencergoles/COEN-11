@@ -1,5 +1,5 @@
-# COEN 11
-## Computer Engineering C Lab Code
+# COEN 11 Lab Code
+
 * Lab 1: Create a division game 
 * Lab 2: Create a hospital list capable of insert, delete, and list
 * Lab 3: Improve hospital list to use array of structs
